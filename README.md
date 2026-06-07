@@ -421,7 +421,7 @@ It helps other developers discover this project.
 
 <br/>
 
-[![Star History Chart](https://api.star-history.com/svg?repos=yourusername/devrealm&type=Date&theme=dark)](https://star-history.com/#yourusername/devrealm)
+[![Star History Chart](https://api.star-history.com/svg?repos=yourusername/devrealm&type=Date&theme=dark)](https://star-history.com/#shivrajcodez/devrealm)
 
 </div>
 
