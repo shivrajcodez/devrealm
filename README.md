@@ -5,16 +5,16 @@
 <br/>
 
 <!-- BADGES ROW 1 -->
-<a href="https://github.com/yourusername/devrealm/stargazers">
-  <img src="https://img.shields.io/github/stars/yourusername/devrealm?style=for-the-badge&logo=github&color=ffe600&labelColor=000305&logoColor=ffe600" alt="Stars"/>
+<a href="https://github.com/shivrajcodez/devrealm/stargazers">
+  <img src="https://img.shields.io/github/stars/shivrajcodez/devrealm?style=for-the-badge&logo=github&color=ffe600&labelColor=000305&logoColor=ffe600" alt="Stars"/>
 </a>
-<a href="https://github.com/yourusername/devrealm/network/members">
-  <img src="https://img.shields.io/github/forks/yourusername/devrealm?style=for-the-badge&logo=git&color=00ffff&labelColor=000305&logoColor=00ffff" alt="Forks"/>
+<a href="https://github.com/shivrajcodez/devrealm/network/members">
+  <img src="https://img.shields.io/github/forks/shivrajcodez/devrealm?style=for-the-badge&logo=git&color=00ffff&labelColor=000305&logoColor=00ffff" alt="Forks"/>
 </a>
-<a href="https://github.com/yourusername/devrealm/issues">
-  <img src="https://img.shields.io/github/issues/yourusername/devrealm?style=for-the-badge&logo=github&color=ff00aa&labelColor=000305&logoColor=ff00aa" alt="Issues"/>
+<a href="https://github.com/shivrajcodez/devrealm/issues">
+  <img src="https://img.shields.io/github/issues/shivrajcodez/devrealm?style=for-the-badge&logo=github&color=ff00aa&labelColor=000305&logoColor=ff00aa" alt="Issues"/>
 </a>
-<a href="https://github.com/yourusername/devrealm/blob/main/LICENSE">
+<a href="https://github.com/shivrajcodez/devrealm/blob/main/LICENSE">
   <img src="https://img.shields.io/badge/License-MIT-7700ff?style=for-the-badge&labelColor=000305" alt="License"/>
 </a>
 
@@ -33,12 +33,6 @@
 ⚔  Transform your GitHub profile into a living 3D RPG world  ⚔
     Repos → Skyscrapers  ·  Stars → Height  ·  Languages → Class
 ```
-
-<br/>
-
-**[🚀 Live Demo](https://devrealm.dev)** · **[📸 Screenshots](#-screenshots)** · **[⚡ Quick Start](#-quick-start)** · **[🤝 Contributing](#-contributing)**
-
-<br/>
 
 </div>
 
@@ -161,14 +155,14 @@ Unlock badges based on your real GitHub activity:
 
 ```bash
 # Download and open — that's the entire install process
-curl -O https://raw.githubusercontent.com/yourusername/devrealm/main/DevRealm.html
+curl -O https://raw.githubusercontent.com/shivrajcodez/devrealm/main/DevRealm.html
 open DevRealm.html
 ```
 
 ### Option B — Clone & serve locally
 
 ```bash
-git clone https://github.com/yourusername/devrealm.git
+git clone https://github.com/shivrajcodez/devrealm.git
 cd devrealm
 
 # Python
@@ -331,13 +325,13 @@ GET https://api.github.com/users/{username}/repos?per_page=100&sort=stars
 - [x] Holographic share card
 - [x] Night mode toggle
 - [x] Mock data fallback when rate limited
-- [ ] GitHub OAuth for authenticated requests (5k rate limit)
-- [ ] Export share card as PNG via `html2canvas`
+- [x] GitHub OAuth for authenticated requests (5k rate limit)
+- [x] Export share card as PNG via `html2canvas`
 - [ ] Multiplayer city — compare two GitHub profiles side by side
 - [ ] GitHub GraphQL API for real commit counts
-- [ ] Flying commits between buildings (particle trails)
+- [x] Flying commits between buildings (particle trails)
 - [ ] Boss battle mode — challenge another dev
-- [ ] Mobile touch controls for 3D city (pinch to zoom)
+- [x] Mobile touch controls for 3D city (pinch to zoom)
 - [ ] Embeddable `<iframe>` widget for personal sites
 
 <br/>
@@ -421,7 +415,7 @@ It helps other developers discover this project.
 
 <br/>
 
-[![Star History Chart](https://api.star-history.com/svg?repos=yourusername/devrealm&type=Date&theme=dark)](https://star-history.com/#shivrajcodez/devrealm)
+[![Star History Chart](https://api.star-history.com/svg?repos=shivrajcodez/devrealm&type=Date&theme=dark)](https://star-history.com/#shivrajcodez/devrealm)
 
 </div>
 
