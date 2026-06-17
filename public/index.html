@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevRealm ⚔️ — GitHub RPG Universe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;1,400&family=VT323&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur2"></div>
+<canvas id="bgc"></canvas>
+<div class="scan"></div>
+<div class="vig"></div>
+<div id="runes"></div>
+<div class="toast" id="toast"></div>
+
+<div id="lang-picker" style="position:fixed;top:20px;right:20px;z-index:999;"><select id="lang-select" onchange="changeLanguage(this.value)" style="background:transparent;color:var(--c1);border:1px solid var(--c1);border-radius:4px;padding:4px;font-family:var(--f3);font-size:16px;outline:none;cursor:pointer;"><option value="en">EN</option><option value="es">ES</option></select></div>
+
+<!-- ===== LANDING ===== -->
+<div class="screen active" id="landing">
+  <div class="hex-bg"></div>
+  <h1 class="logo-glitch" data-text="DevRealm">DevRealm</h1>
+  <div style="font-family:var(--f3);font-size:clamp(16px,2.5vw,26px);color:var(--c2);letter-spacing:8px;text-shadow:var(--g2);animation:fup 1s 0.3s both;margin-bottom:4px;" data-i18n="hero_title">YOUR GITHUB UNIVERSE</div>
+  <p class="hero-desc" data-i18n="hero_desc">Transform your GitHub profile into a living RPG world. Repos become skyscrapers. Stars forge your legend. Your language defines your class.</p>
+
+  <div class="sw">
+    <div class="sgb">
+      <div class="si2">
+        <input class="si" id="ui" type="text" placeholder="ENTER GITHUB USERNAME..." autocomplete="off" spellcheck="false" data-i18n="enter_placeholder">
+        <button class="benter" onclick="go()" data-i18n="enter_btn">ENTER ⚔</button>
+      </div>
+    </div>
+    <div class="err" id="err" data-i18n="error_no_user">⚠ ENTER A GITHUB USERNAME</div>
+  </div>
+
+  <div class="demo-row">
+    <span class="dlbl" data-i18n="try_lbl">TRY:</span>
+    <div class="chip" onclick="tryU('torvalds')">torvalds</div>
+    <div class="chip" onclick="tryU('gaearon')">gaearon</div>
+    <div class="chip" onclick="tryU('yyx990803')">yyx990803</div>
+    <div class="chip" onclick="tryU('sindresorhus')">sindresorhus</div>
+    <div class="chip" onclick="tryU('tj')">tj</div>
+  </div>
+  <button class="rand-btn" onclick="randDev()" data-i18n="random_btn">🎲 EXPLORE RANDOM DEV</button>
+
+  <div class="fg">
+    <div class="feat"><span class="feat-i">🏙️</span><div class="feat-n" data-i18n="feat1_title">DEV CITY</div><div class="feat-d" data-i18n="feat1_desc">Repos become towering skyscrapers. Stars shape skylines. Languages paint the districts.</div></div>
+    <div class="feat"><span class="feat-i">🧙</span><div class="feat-n" data-i18n="feat2_title">RPG CLASS</div><div class="feat-d" data-i18n="feat2_desc">Python Mage. JS Rogue. Rust Sentinel. Your primary language forges your destiny.</div></div>
+    <div class="feat"><span class="feat-i">⭐</span><div class="feat-n" data-i18n="feat3_title">LEVEL UP</div><div class="feat-d" data-i18n="feat3_desc">Gain XP from stars, commits & followers. Rise from initiate to Open Source Legend.</div></div>
+    <div class="feat"><span class="feat-i">🔥</span><div class="feat-n" data-i18n="feat4_title">GO VIRAL</div><div class="feat-d" data-i18n="feat4_desc">AI roasts & holographic share cards engineered to break the internet.</div></div>
+  </div>
+
+  <div class="ticker">
+    <div class="ti"><div class="tv" id="t1">0</div><div class="tl" data-i18n="t_devs">DEVS EXPLORED</div></div>
+    <div class="ti"><div class="tv" id="t2">0</div><div class="tl" data-i18n="t_repos">REPOS MAPPED</div></div>
+    <div class="ti"><div class="tv" id="t3">0</div><div class="tl" data-i18n="t_roasts">ROASTS SERVED</div></div>
+    <div class="ti"><div class="tv" id="t4">0</div><div class="tl" data-i18n="t_stars">STARS COUNTED</div></div>
+  </div>
+</div>
+
+<!-- ===== LOADING ===== -->
+<div id="ls">
+  <div class="lorb">
+    <div class="lr lr1"></div>
+    <div class="lr lr2"></div>
+    <div class="lr lr3"></div>
+    <div class="lcore"></div>
+  </div>
+  <div class="ltxt" data-i18n="summoning">SUMMONING YOUR REALM</div>
+  <div class="lstp" id="lstp" data-i18n="initializing">Initializing...</div>
+  <div class="lbw"><div class="lb" id="lbar"></div></div>
+</div>
+
+<!-- ===== DASHBOARD ===== -->
+<div class="screen" id="dashboard">
+  <div class="dh">
+    <div class="dh-logo">⚔ DEVREALM</div>
+    <div class="dh-tabs">
+      <button class="tb on" onclick="stab('city',this)" data-i18n="tab_city">🏙 CITY</button>
+      <button class="tb" onclick="stab('analytics',this)" data-i18n="tab_analytics">📊 ANALYTICS</button>
+      <button class="tb" onclick="stab('viral',this)" data-i18n="tab_viral">🔥 VIRAL</button>
+    </div>
+    <button class="bbk" onclick="goBack()" data-i18n="new_search">← NEW SEARCH</button>
+  </div>
+
+  <div class="dbb">
+    <div class="sb2">
+      <!-- Char Card -->
+      <div class="cc">
+        <div class="av-wrap">
+          <div class="av-ring"><div class="av-inner"><img class="av-img" id="cav" src="" alt=""></div></div>
+          <div class="av-lvl" id="calvl">1</div>
+        </div>
+        <div class="cn" id="cname">—</div>
+        <div class="ch" id="chandle">—</div>
+        <span class="ce" id="cemoji">🧙</span>
+        <div class="ccn" id="cclass" data-i18n="loading">LOADING</div>
+        <div class="ct2" id="ctitle">—</div>
+        <div class="stb">
+          <div class="sr"><div class="srt"><span class="srl" data-i18n="atk">⚔ ATK</span><span class="srv" id="vatk">0</span></div><div class="strack"><div class="sfill fatk" id="batk" style="width:0%"></div></div></div>
+          <div class="sr"><div class="srt"><span class="srl" data-i18n="def">🛡 DEF</span><span class="srv" id="vdef">0</span></div><div class="strack"><div class="sfill fdef" id="bdef" style="width:0%"></div></div></div>
+          <div class="sr"><div class="srt"><span class="srl" data-i18n="spd">⚡ SPD</span><span class="srv" id="vspd">0</span></div><div class="strack"><div class="sfill fspd" id="bspd" style="width:0%"></div></div></div>
+          <div class="sr"><div class="srt"><span class="srl" data-i18n="mag">✨ MAG</span><span class="srv" id="vmag">0</span></div><div class="strack"><div class="sfill fmag" id="bmag" style="width:0%"></div></div></div>
+          <div class="sr"><div class="srt"><span class="srl" data-i18n="cha">💎 CHA</span><span class="srv" id="vcha">0</span></div><div class="strack"><div class="sfill fcha" id="bcha" style="width:0%"></div></div></div>
+        </div>
+        <div class="xpb">
+          <div class="xplbl"><span>XP</span><span id="xplbl">0 / 1000</span></div>
+          <div class="xptrack"><div class="xpfill" id="xpf" style="width:0%"></div></div>
+          <div style="text-align:center"><div class="lvlpill">⭐ <span data-i18n="lvl">LEVEL</span> <span id="clvl">1</span> <span data-i18n="dev_title">DEVELOPER</span></div></div>
+        </div>
+      </div>
+
+      <div class="ms2">
+        <div class="ms"><div class="msv" style="color:var(--c1)" id="msrp">0</div><div class="msl" data-i18n="repos_lbl">REPOS</div></div>
+        <div class="ms"><div class="msv" style="color:var(--c3)" id="msst">0</div><div class="msl" data-i18n="stars_lbl">STARS</div></div>
+        <div class="ms"><div class="msv" style="color:var(--c4)" id="msfl">0</div><div class="msl" data-i18n="followers_lbl">FOLLOWERS</div></div>
+        <div class="ms"><div class="msv" style="color:var(--c5)" id="msfk">0</div><div class="msl" data-i18n="forks_lbl">FORKS</div></div>
+      </div>
+
+      <div><div class="shdr" data-i18n="lang_skills">⚡ LANGUAGE SKILLS</div><div class="stags" id="stags"></div></div>
+      <div><div class="shdr" data-i18n="achievements">🏆 ACHIEVEMENTS</div><div class="achl" id="achl"></div></div>
+    </div>
+
+    <div class="mc">
+      <!-- CITY -->
+      <div class="tp active" id="city-panel">
+        <div class="cph">
+          <div><div class="ctitle" id="cityname">DevCity</div><div class="csub" id="citysub">0 BUILDINGS</div></div>
+          <button class="rand-btn" onclick="randDev()" data-i18n="random_btn">🎲 RANDOM DEV</button>
+        </div>
+        <div class="cwrap" id="city-wrap">
+          <div id="cityc" style="width:100%;height:540px;"></div>
+          <div class="chud">
+            <div class="hb" id="hpop">🏙 0 BUILDINGS</div>
+            <div class="hb" id="hview" data-i18n="drag_rot">🔄 DRAG TO ROTATE</div>
+          </div>
+          <div class="city-controls">
+            <button class="cc-btn" onclick="cityResetCamera()" data-i18n="reset">⟳ RESET</button>
+            <button class="cc-btn" id="spinBtn" onclick="cityToggleSpin()" data-i18n="spin">⏸ SPIN</button>
+            <button class="cc-btn" id="nightBtn" onclick="cityToggleNight()" data-i18n="night">🌙 NIGHT</button>
+          </div>
+          <div class="ctip" id="ctip">
+            <div class="ctn" id="ctn">—</div>
+            <div class="ctr" id="ctstar">⭐ 0</div>
+            <div class="ctr" id="ctlang">● Unknown</div>
+            <div class="ctr" id="ctfork">🍴 0</div>
+            <div class="ctr" id="ctclick" style="color:var(--c1);margin-top:4px;font-size:13px;" data-i18n="click_open">CLICK TO OPEN →</div>
+          </div>
+        </div>
+        <div class="cleg" id="cleg"></div>
+        <div class="sec-t" data-i18n="repo_sec">📦 REPOSITORIES</div>
+        <div class="rgt" id="rgt"></div>
+      </div>
+
+      <!-- ANALYTICS -->
+      <div class="tp" id="analytics-panel">
+        <div class="sec-t" style="font-size:11px;letter-spacing:8px;margin-top:2px;" data-i18n="analytics_sec">📊 ANALYTICS</div>
+        <div class="ag" id="ag"></div>
+        <div class="chc"><div class="chdr" data-i18n="lang_mast">🗣 LANGUAGE MASTERY</div><div id="lbars"></div></div>
+        <div class="chc">
+          <div class="chdr" data-i18n="heatmap">📅 CONTRIBUTION HEATMAP</div>
+          <div class="hmap" id="hmap"></div>
+          <div class="hml"><span data-i18n="less">LESS</span><div class="hmd"><div style="width:11px;height:11px;border-radius:2px;background:rgba(0,255,255,0.05)"></div><div style="width:11px;height:11px;border-radius:2px;background:rgba(0,255,255,0.2)"></div><div style="width:11px;height:11px;border-radius:2px;background:rgba(0,255,255,0.45)"></div><div style="width:11px;height:11px;border-radius:2px;background:rgba(0,255,255,0.7)"></div><div style="width:11px;height:11px;border-radius:2px;background:#00ffff"></div></div><span data-i18n="more">MORE</span></div>
+        </div>
+      </div>
+
+      <!-- VIRAL -->
+      <div class="tp" id="viral-panel">
+        <div class="sec-t" style="font-size:11px;letter-spacing:8px;margin-top:2px;" data-i18n="viral_zone">🔥 VIRAL ZONE</div>
+        <div class="vg">
+          <div class="vc">
+            <div class="vct" style="color:var(--c6)" data-i18n="roast_title">🔥 ROAST MY PROFILE</div>
+            <div class="vcs" data-i18n="roast_desc_text">AI-powered brutal (but loving) analysis of your coding sins.</div>
+            <button class="bv broast" id="rbt" onclick="roast()" data-i18n="roast_btn_text">🔥 ROAST ME NOW</button>
+            <div class="roastbox" id="rbox"></div>
+          </div>
+          <div class="vc">
+            <div class="vct" style="color:var(--c1)" data-i18n="share_title">🃏 SHARE CARD</div>
+            <div class="vcs" data-i18n="share_desc_text">Holographic dev card. Screenshot & post. Watch your DMs explode.</div>
+            <button class="bv bshare" onclick="genCard()" data-i18n="gen_card">✨ GENERATE CARD</button>
+            <div class="scard" id="scard">
+              <div class="scg1"></div><div class="scg2"></div><div class="scsc"></div>
+              <div class="sch">
+                <img class="scav" id="scav" src="" alt="">
+                <div><div class="scun" id="scun">—</div><div class="sccl" id="sccl">—</div><div class="sctt" id="sctt">—</div></div>
+              </div>
+              <div class="scs">
+                <div class="scst"><div class="scsv" id="sclvl" style="color:var(--c3)">1</div><div class="scsl" data-i18n="lvl">LEVEL</div></div>
+                <div class="scst"><div class="scsv" id="scst">0</div><div class="scsl" data-i18n="stars_lbl">STARS</div></div>
+                <div class="scst"><div class="scsv" id="scrp" style="color:var(--c4)">0</div><div class="scsl" data-i18n="repos_lbl">REPOS</div></div>
+              </div>
+              <div class="scbw"><div class="scbl" data-i18n="xp_prog">XP PROGRESS</div><div class="scbt"><div class="scbf" id="scxp" style="width:50%"></div></div></div>
+              <div class="scwm">DEVREALM.DEV</div>
+            </div>
+            <button class="bcopy" id="bcpy" onclick="cpyCard()" data-i18n="copy_card">📋 COPY TEXT CARD</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/i18n.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>
+
